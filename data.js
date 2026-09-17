@@ -71,11 +71,11 @@ const MEDPROG_MAPS = [
   {
     service: "none",
     indicator: "none",
-    level: "regierungsbezirke",
+    level: "regebezirke",
     file: "maps/none_none_regebezirke.png",
     title: "Regierungsbezirke (Regionale Einordnung)",
-    description: "Übergeordnete Raumgliederung der Regierungsbezirke in Nordrhein-Westfalen.",
-    source: "Land NRW / Geobasis NRW",
+    description: "sss",
+    source: "sss",
     year: "2026"
   }
   // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
