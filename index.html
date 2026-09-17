@@ -27,15 +27,110 @@
           <option value="hausarzt">Hausärztliche Versorgung</option>
           <option value="kinderarzt">Kinderärztliche Versorgung</option>
           <option value="psychotherapie">Psychotherapeutische Versorgung</option>
+          <option value="apotheke">Apotheken</option>
         </select>
       </div>
 
       <div class="filter-group">
         <label for="select-indicator">Sozialindikator</label>
-        <select id="select-indicator">
-          <option value="arbeitslosigkeit">Arbeitslosenanteil</option>
-          <option value="u18">Bevölkerung unter 18 Jahren</option>
-          <option value="u65">Bevölkerung ab 65 Jahren</option>
+<select id="select-indicator">
+          <!-- Bisherige Standard-Werte -->
+          <optgroup label="Häufig genutzt & Basis">
+            <option value="arbeitslosigkeit">Arbeitslosenquote</option>
+            <option value="bev_verteilung">Bevölkerungsverteilung</option>
+            <option value="bev_verteilung_m">Bevölkerungsverteilung, männlich</option>
+            <option value="bev_verteilung_w">Bevölkerungsverteilung, weiblich</option>
+            <option value="bev_dichte_m2">Bevölkerungsdichte pro m²</option>
+            <option value="siedlungsdichte">Siedlungsdichte</option>
+          </optgroup>
+
+          <optgroup label="Migration & Herkunft">
+            <option value="bev_mig">Bevölkerungsverteilung, Migrationshintergrund</option>
+            <option value="bev_mig_m">Bevölkerungsverteilung, Migrationshintergrund männlich</option>
+            <option value="bev_mig_w">Bevölkerungsverteilung, Migrationshintergrund weiblich</option>
+            <option value="anteil_mig">Anteil BEV mit Migrationshintergrund</option>
+            <option value="anteil_mig_m">Anteil BEV mit Migrationshintergrund, männlich</option>
+            <option value="anteil_mig_w">Anteil BEV mit Migrationshintergrund, weiblich</option>
+            <option value="anteil_u18_mig">Anteil BEV unter 18 Jahre mit Migrationshintergrund</option>
+            <option value="anteil_u18_mig_m">Anteil BEV unter 18 Jahre mit Migrationshintergrund, männlich</option>
+            <option value="anteil_u18_mig_w">Anteil BEV unter 18 Jahre mit Migrationshintergrund, weiblich</option>
+            <option value="anteil_geborene_mig">Anteil Lebendgeborene mit Migrationshintergrund</option>
+            <option value="anteil_u6_bg_ro">Bevölkerungsanteil unter 6 Jahre mit 1. Staatsangehörigkeit Bulgarien und Rumänien</option>
+            <option value="zuwanderung_ausland">Zuwanderung aus dem Ausland</option>
+          </optgroup>
+
+          <optgroup label="Kinder & Jugend (unter 18 Jahre)">
+            <option value="anteil_u6">Bevölkerungsanteil unter 6 Jahre</option>
+            <option value="u18">Bevölkerungsanteil unter 18 Jahre</option>
+            <option value="anteil_u18_m">Bevölkerungsanteil unter 18 Jahre, männlich</option>
+            <option value="anteil_u18_w">Bevölkerungsanteil unter 18 Jahre, weiblich</option>
+            <option value="jugendquotient">Jugendquotient</option>
+            <option value="jugendquotient_m">Jugendquotient, männlich</option>
+            <option value="jugendquotient_w">Jugendquotient, weiblich</option>
+            <option value="jugendquotient_dt">Jugendquotient, Deutsch</option>
+            <option value="jugendquotient_mig">Jugendquotient, Migration</option>
+          </optgroup>
+
+          <optgroup label="Ältere Bevölkerung & Hochaltrige">
+            <option value="u65">Bevölkerungsanteil 65 Jahre und älter</option>
+            <option value="anteil_65plus_m">Bevölkerungsanteil männlich, 65 Jahre und älter</option>
+            <option value="anteil_65plus_w">Bevölkerungsanteil weiblich, 65 Jahre und älter</option>
+            <option value="anteil_65plus_dt">Bevölkerungsanteil 65 Jahre und älter, Deutsch</option>
+            <option value="anteil_65plus_mig">Bevölkerungsanteil 65 Jahre und älter mit Migration</option>
+            <option value="altenquotient">Altenquotient</option>
+            <option value="altenquotient_m">Altenquotient, männlich</option>
+            <option value="altenquotient_w">Altenquotient, weiblich</option>
+            <option value="altenquotient_dt">Altenquotient, Deutsch</option>
+            <option value="altenquotient_mig">Altenquotient, Migration</option>
+            <option value="anteil_hochaltrige">Bevölkerungsanteil Hochaltrige</option>
+            <option value="anteil_hochaltrige_m">Bevölkerungsanteil Hochaltrige, männlich</option>
+            <option value="anteil_hochaltrige_w">Bevölkerungsanteil Hochaltrige, weiblich</option>
+            <option value="anteil_hochaltrige_dt">Bevölkerungsanteil Hochaltrige, Deutsch</option>
+            <option value="anteil_hochaltrige_mig">Bevölkerungsanteil Hochaltrige mit Migration</option>
+          </optgroup>
+
+          <optgroup label="Haushalte, Familien & Alleinerziehende">
+            <option value="familienanteil_hh">Familienanteil an allen Haushalten</option>
+            <option value="anteil_familien_mig">Anteil Familien mit Migrationshintergrund an allen Familienhaushalten</option>
+            <option value="anteil_kinderreiche_fam">Anteil kinderreicher Familien an allen Haushalten</option>
+            <option value="anteil_kinderreiche_fam_mig">Anteil kinderreicher Familien mit Migrationshintergrund an allen kinderreichen Familien</option>
+            <option value="anteil_single_hh">Anteil Singlehaushalte</option>
+            <option value="anteil_single_hh_m">Anteil Singlehaushalte, männlich</option>
+            <option value="anteil_single_hh_w">Anteil Singlehaushalte, weiblich</option>
+            <option value="anteil_single_hh_dt">Anteil Singlehaushalte, deutsch</option>
+            <option value="anteil_single_hh_mig">Anteil Singlehaushalte, Migration</option>
+            <option value="anteil_hochaltrige_single_80plus">Anteil hochaltrige Singlehaushalte an allen Haushalten mit der Bezugsperson über 80 Jahre</option>
+            <option value="anteil_hochaltrige_single">Anteil hochaltrige Singlehaushalte an allen Singlehaushalten</option>
+            <option value="anteil_hochaltrige_single_m">Anteil hochaltrige Singlehaushalte, männlich</option>
+            <option value="anteil_hochaltrige_single_w">Anteil hochaltrige Singlehaushalte, weiblich</option>
+            <option value="anteil_hochaltrige_single_dt">Anteil hochaltrige Singlehaushalte, deutsch</option>
+            <option value="anteil_hochaltrige_single_mig">Anteil hochaltrige Singlehaushalte, Migration</option>
+            <option value="anteil_ae_hh">Anteil Alleinerziehender an allen Familien-Haushalten</option>
+            <option value="anteil_ae_hh_m">Anteil Alleinerziehender männlich an allen AE HH</option>
+            <option value="anteil_ae_hh_w">Anteil Alleinerziehender weiblich an allen AE HH</option>
+            <option value="anteil_ae_hh_mig">Anteil Alleinerziehender mit Migrationshintergrund an allen AE</option>
+            <option value="anteil_ae_hh_mig_m">Anteil Alleinerziehender mit Migrationshintergrund männlich an allen AE MIG</option>
+            <option value="anteil_ae_hh_mig_w">Anteil Alleinerziehender mit Migrationshintergrund weiblich an allen AE MIG</option>
+          </optgroup>
+
+          <optgroup label="Bevölkerungsentwicklung & Dynamik">
+            <option value="bev_entw_3j">Bevölkerungsentwicklung in den vergangenen drei Jahren</option>
+            <option value="bev_entw_3j_m">Bevölkerungsentwicklung in den vergangenen drei Jahren, männlich</option>
+            <option value="bev_entw_3j_w">Bevölkerungsentwicklung in den vergangenen drei Jahren, weiblich</option>
+            <option value="bev_entw_10j">Bevölkerungsentwicklung in den vergangenen zehn Jahren</option>
+            <option value="bev_entw_10j_m">Bevölkerungsentwicklung in den vergangenen zehn Jahren, männlich</option>
+            <option value="bev_entw_10j_w">Bevölkerungsentwicklung in den vergangenen zehn Jahren, weiblich</option>
+            <option value="bev_entw_prog_10j">Bevölkerungsentwicklung für die kommenden zehn Jahre</option>
+            <option value="wanderungssaldo_aussen">Saldo der Zu-/Fortgezogenen (Außenwanderung)</option>
+            <option value="wanderungssaldo_binnen">Saldo der Zu-/Fortgezogenen (Binnenwanderung)</option>
+            <option value="anteil_geringe_wohndauer">Bevölkerungsanteil mit geringer Wohndauer</option>
+          </optgroup>
+
+          <optgroup label="Erwerbstätigkeit & Beschäftigung">
+            <option value="anteil_svb">Anteil sozialversicherungspflichtig Beschäftigte</option>
+            <option value="anteil_svb_dt">Anteil deutsche sozialversicherungspflichtig Beschäftigte</option>
+            <option value="anteil_svb_nichtdt">Anteil nichtdeutsche sozialversicherungspflichtig Beschäftigte</option>
+          </optgroup>
         </select>
       </div>
 
