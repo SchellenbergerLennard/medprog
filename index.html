@@ -24,115 +24,62 @@
       <div class="filter-group">
         <label for="select-service">Versorgungsangebot</label>
         <select id="select-service">
-          <option value="none">-- Kein Versorgungsangebot (nur Indikator / Raum) --</option>
+          <option value="none">--</option>
           
           <option value="hausarzt">Hausärztliche Versorgung</option>
           <option value="kinderarzt">Kinderärztliche Versorgung</option>
           <option value="psychotherapie">Psychotherapeutische Versorgung</option>
-          <option value="apotheke">Apotheken</option>
         </select>
       </div>
 
       <div class="filter-group">
         <label for="select-indicator">Sozialindikator</label>
 <select id="select-indicator">
-          <option value="none">-- Kein Sozialindikator (nur Versorgungsangebot) --</option>
+          <option value="none">--</option>
           
           <optgroup label="Häufig genutzt &amp; Basis">
-            <option value="arbeitslosigkeit">Arbeitslosenquote</option>
-            <option value="bev-verteilung">Bevölkerungsverteilung (gesamt)</option>
-            <option value="bev-verteilung-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="bev-verteilung-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
+            <option value="arbeitslosigkeit">Arbeitslosenanteil</option>
+            <option value="bev-verteilung">Bevölkerungsverteilung</option>
             <option value="bev-dichte-m2">Bevölkerungsdichte pro m²</option>
             <option value="siedlungsdichte">Siedlungsdichte</option>
           </optgroup>
 
           <optgroup label="Migration &amp; Herkunft">
             <option value="bev-mig">Bevölkerungsverteilung mit Migrationshintergrund</option>
-            <option value="bev-mig-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="bev-mig-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
             <option value="anteil-mig">Anteil BEV mit Migrationshintergrund</option>
-            <option value="anteil-mig-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-mig-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
             <option value="anteil-u18-mig">Anteil BEV unter 18 Jahre mit Migrationshintergrund</option>
-            <option value="anteil-u18-mig-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-u18-mig-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
             <option value="anteil-geborene-mig">Anteil Lebendgeborene mit Migrationshintergrund</option>
-            <option value="anteil-u6-bg-ro">Bevölkerungsanteil unter 6 Jahre mit 1. Staatsangehörigkeit Bulgarien und Rumänien</option>
             <option value="zuwanderung-ausland">Zuwanderung aus dem Ausland</option>
           </optgroup>
 
           <optgroup label="Kinder &amp; Jugend (unter 18 Jahre)">
             <option value="anteil-u6">Bevölkerungsanteil unter 6 Jahre</option>
-            <option value="u18">Bevölkerungsanteil unter 18 Jahre (gesamt)</option>
-            <option value="anteil-u18-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-u18-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="jugendquotient">Jugendquotient (gesamt)</option>
-            <option value="jugendquotient-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="jugendquotient-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="jugendquotient-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Deutsch</option>
-            <option value="jugendquotient-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Migration</option>
+            <option value="u18">Bevölkerungsanteil unter 18 Jahre</option>
+            <option value="jugendquotient">Jugendquotient</option>          
           </optgroup>
 
           <optgroup label="Ältere Bevölkerung &amp; Hochaltrige">
-            <option value="u65">Bevölkerungsanteil 65 Jahre und älter (gesamt)</option>
-            <option value="anteil-65plus-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-65plus-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="anteil-65plus-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Deutsch</option>
-            <option value="anteil-65plus-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon mit Migration</option>
-            <option value="altenquotient">Altenquotient (gesamt)</option>
-            <option value="altenquotient-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="altenquotient-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="altenquotient-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Deutsch</option>
-            <option value="altenquotient-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Migration</option>
-            <option value="anteil-hochaltrige">Bevölkerungsanteil Hochaltrige (gesamt)</option>
-            <option value="anteil-hochaltrige-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-hochaltrige-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="anteil-hochaltrige-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Deutsch</option>
-            <option value="anteil-hochaltrige-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon mit Migration</option>
+            <option value="u65">Bevölkerungsanteil 65 Jahre und älter</option>
+            <option value="altenquotient">Altenquotient</option>
+            <option value="anteil-hochaltrige">Bevölkerungsanteil Hochaltrige</option>          
           </optgroup>
 
           <optgroup label="Haushalte, Familien &amp; Alleinerziehende">
             <option value="familienanteil-hh">Familienanteil an allen Haushalten</option>
-            <option value="anteil-familien-mig">Anteil Familien mit Migrationshintergrund an allen Familienhaushalten</option>
             <option value="anteil-kinderreiche-fam">Anteil kinderreicher Familien an allen Haushalten</option>
-            <option value="anteil-kinderreiche-fam-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon mit Migrationshintergrund</option>
-            <option value="anteil-single-hh">Anteil Singlehaushalte (gesamt)</option>
-            <option value="anteil-single-hh-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-single-hh-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="anteil-single-hh-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon deutsch</option>
-            <option value="anteil-single-hh-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Migration</option>
+            <option value="anteil-single-hh">Anteil Singlehaushalte</option>
             <option value="anteil-hochaltrige-single-80plus">Anteil hochaltrige Singlehaushalte an allen Haushalten mit Bezugsperson über 80 Jahre</option>
-            <option value="anteil-hochaltrige-single">Anteil hochaltrige Singlehaushalte an allen Singlehaushalten (gesamt)</option>
-            <option value="anteil-hochaltrige-single-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-hochaltrige-single-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="anteil-hochaltrige-single-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon deutsch</option>
-            <option value="anteil-hochaltrige-single-mig">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon Migration</option>
-            <option value="anteil-ae-hh">Anteil Alleinerziehender an allen Familien-Haushalten (gesamt)</option>
-            <option value="anteil-ae-hh-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-ae-hh-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="anteil-ae-hh-mig">Anteil Alleinerziehender mit Migrationshintergrund an allen AE (gesamt)</option>
-            <option value="anteil-ae-hh-mig-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="anteil-ae-hh-mig-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
+            <option value="anteil-hochaltrige-single">Anteil hochaltrige Singlehaushalte an allen Singlehaushalten</option>
+            <option value="anteil-ae-hh">Anteil Alleinerziehender an allen Familien-Haushalten</option>
           </optgroup>
 
           <optgroup label="Bevölkerungsentwicklung &amp; Dynamik">
-            <option value="bev-entw-3j">Bevölkerungsentwicklung in den vergangenen 3 Jahren (gesamt)</option>
-            <option value="bev-entw-3j-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="bev-entw-3j-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="bev-entw-10j">Bevölkerungsentwicklung in den vergangenen 10 Jahren (gesamt)</option>
-            <option value="bev-entw-10j-m">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon männlich</option>
-            <option value="bev-entw-10j-w">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon weiblich</option>
-            <option value="bev-entw-prog-10j">Bevölkerungsentwicklung für die kommenden 10 Jahre</option>
-            <option value="wanderungssaldo-aussen">Saldo der Zu-/Fortgezogenen (Außenwanderung)</option>
-            <option value="wanderungssaldo-binnen">Saldo der Zu-/Fortgezogenen (Binnenwanderung)</option>
-            <option value="anteil-geringe-wohndauer">Bevölkerungsanteil mit geringer Wohndauer</option>
+            <option value="bev-entw-3j">Bevölkerungsentwicklung in den vergangenen 3 Jahren</option>
+            <option value="bev-entw-10j">Bevölkerungsentwicklung in den vergangenen 10 Jahren</option>
           </optgroup>
 
           <optgroup label="Erwerbstätigkeit &amp; Beschäftigung">
-            <option value="anteil-svb">Anteil sozialversicherungspflichtig Beschäftigte (gesamt)</option>
-            <option value="anteil-svb-dt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon deutsche Beschäftigte</option>
-            <option value="anteil-svb-nichtdt">&nbsp;&nbsp;&nbsp;&nbsp;↳ davon nichtdeutsche Beschäftigte</option>
+            <option value="anteil-svb">Anteil sozialversicherungspflichtig Beschäftigte</option>
           </optgroup>
         </select>
       </div>
@@ -140,9 +87,8 @@
       <div class="filter-group">
         <label for="select-level">Räumliche Ebene</label>
         <select id="select-level">
-          <option value="none">-- Keine räumliche Ebene --</option>
+          <option value="none">--</option>
           
-          <option value="stadtgebiet">Stadtgebiet</option>
           <option value="stadtbezirke">Stadtbezirke</option>
           <option value="stadtteile">Stadtteile</option>
           <option value="regebezirke">Regebezirke</option>
