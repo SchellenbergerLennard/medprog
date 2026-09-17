@@ -51,15 +51,21 @@ function zeigeAusgewaehlteKarte() {
     mapMeta.style.display = "none";
     mapStatus.style.display = "block";
 
-    // Freundlicher Hinweistext mit den gewählten Begriffen
-    const serviceText = selectService.options[selectService.selectedIndex].text;
-    const indicatorText = selectIndicator.options[selectIndicator.selectedIndex].text;
+    // Lesbare Begriffe für den Infokasten zusammenstellen
+    const teile = [];
+    if (gewaehlterService !== "none") {
+      teile.push(selectService.options[selectService.selectedIndex].text);
+    }
+    if (gewaehlterIndicator !== "none") {
+      teile.push(selectIndicator.options[selectIndicator.selectedIndex].text);
+    }
     const levelText = selectLevel.options[selectLevel.selectedIndex].text;
+    const filterZusammenfassung = teile.length > 0 ? teile.join(" × ") : "Nur Basiskarte";
 
     mapStatus.innerHTML = `
       <p class="status-title">Für diese Auswahl ist derzeit noch keine Karte verfügbar.</p>
       <p class="status-desc">
-        Kombination: <strong>${serviceText}</strong> × <strong>${indicatorText}</strong> (${levelText})<br>
+        Auswahl: <strong>${filterZusammenfassung}</strong> (${levelText})<br>
         Diese Auswertung wird möglicherweise zu einem späteren Zeitpunkt ergänzt.
       </p>
     `;
