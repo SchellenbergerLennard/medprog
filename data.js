@@ -33,6 +33,50 @@ const MEDPROG_MAPS = [
     description: "Räumliche Standorte und Verteilung der niedergelassenen Psychotherapeutinnen und Psychotherapeuten.",
     source: "MEDPROG / KVWL",
     year: "2026"
-  }
+  },
+  
+  // ==========================================
+  // Reine Raum- und Basiskarten (ohne Fachdaten)
+  // ==========================================
+  {
+    service: "none",
+    indicator: "none",
+    level: "stadtgebiet",
+    file: "maps/none_none_stadtgebiet.png",
+    title: "Stadtgebiet Gelsenkirchen (Gesamtansicht)",
+    description: "Kartografische Übersicht des gesamten Stadtgebiets von Gelsenkirchen im regionalen Kontext.",
+    source: "Stadt Gelsenkirchen / MEDPROG",
+    year: "2026"
+  },
+  {
+    service: "none",
+    indicator: "none",
+    level: "stadtbezirke",
+    file: "maps/none_none_stadtbezirke.png",
+    title: "Stadtbezirke Gelsenkirchen",
+    description: "Räumliche Abgrenzung der fünf Gelsenkirchener Stadtbezirke (Nord, Mitte, West, Ost und Süd).",
+    source: "Stadt Gelsenkirchen / MEDPROG",
+    year: "2026"
+  },
+  {
+    service: "none",
+    indicator: "none",
+    level: "stadtteile",
+    file: "maps/none_none_stadtteile.png",
+    title: "Stadtteile Gelsenkirchen (Kleinräumige Gliederung)",
+    description: "Übersichtskarte der administrativen Grenzen aller Stadtteile im Stadtgebiet.",
+    source: "Stadt Gelsenkirchen / MEDPROG",
+    year: "2026"
+  },
+  {
+    service: "none",
+    indicator: "none",
+    level: "regierungsbezirke",
+    file: "maps/none_none_regierungsbezirke.png",
+    title: "Regierungsbezirke (Regionale Einordnung)",
+    description: "Übergeordnete Raumgliederung der Regierungsbezirke in Nordrhein-Westfalen.",
+    source: "Land NRW / Geobasis NRW",
+    year: "2026"
+  },
   // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
 ];
