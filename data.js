@@ -23,6 +23,16 @@ const MEDPROG_MAPS = [
     description: "Versorgungsgrad und Erreichbarkeiten von Pädiatern bei kleinräumiger Betrachtung der Minderjährigenquote.",
     source: "MEDPROG / Eigene Darstellung",
     year: "2026"
+  },
+  {
+    service: "psychotherapie",
+    indicator: "none",
+    level: "stadtteile", // oder "stadtbezirke", je nachdem was deine Karte zeigt
+    file: "maps/psychotherapie_none_stadtteile.png",
+    title: "Psychotherapeutische Versorgung in Gelsenkirchen",
+    description: "Räumliche Standorte und Verteilung der niedergelassenen Psychotherapeutinnen und Psychotherapeuten.",
+    source: "MEDPROG / KVWL",
+    year: "2026"
   }
   // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
 ];
