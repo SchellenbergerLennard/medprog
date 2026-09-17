@@ -48,6 +48,19 @@ const MEDPROG_MAPS = [
     source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
+
+  // Rettungsdienst
+  {
+    service: "rettungsdienst",
+    indicator: "none",
+    level: "none",
+    file: "maps/rettungsdienst_none_none.png",
+    title: "Rettungsdienstliche Versorgung in Gelsenkirchen",
+    description: "Standorte und Erreichbarkeiten der Rettungsdienste in Gelsenkirchen.",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der Stadt Gelsenkrichen",
+    year: "2026"
+  },
+  
   
   // Raumdaten
   {
