@@ -77,6 +77,16 @@ const MEDPROG_MAPS = [
     description: "sss",
     source: "sss",
     year: "2026"
-  }
+  },
+  {
+  service: "hausarzt",
+  indicator: "sgb-ii-quote",
+  level: "regebetirke",
+  file: "maps/hausarzt_sgb-ii-quote_regebezirke.png",
+  title: "sss",
+  description: "sss",
+  source: "sss",
+  year: "2026"
+},
   // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
 ];
