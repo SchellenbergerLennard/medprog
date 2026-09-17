@@ -1,0 +1,228 @@
+/* ==========================================================================
+   MEDPROG – Kartenatlas Gelsenkirchen
+   Design & Farbwelt (Akzent: Hellgrün / Westfälische Hochschule)
+   ========================================================================== */
+
+/* 1. Grundlegende Farbvariablen und Schriftarten */
+:root {
+  /* WH-Grüntöne (Frisches Institutsgrün als Akzent) */
+  --wh-green: #6da515;          /* Haupt-Akzentgrün */
+  --wh-green-dark: #56840f;     /* Dunkleres Grün für Hover & Klicks */
+  --wh-green-soft: #f2f8ea;     /* Sehr zartes Grün für Hintergründe/Badges */
+  --wh-green-border: #c8e29d;   /* Weiche grüne Umrandung */
+
+  /* Neutrale Töne (Wissenschaftlich, ruhig, hoher Kontrast) */
+  --text-main: #1e293b;         /* Dunkles Schieferblau für besten Lesekomfort */
+  --text-muted: #64748b;        /* Dezentes Grau für Beschreibungen & Metadaten */
+  --bg-page: #f8fafc;           /* Ganz leicht abgetöntes Weiß für den Hintergrund */
+  --bg-card: #ffffff;           /* Reines Weiß für Inhaltskarten */
+  --border-color: #e2e8f0;      /* Subtile graue Linien */
+
+  /* Abstände und Radien */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Globales Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 30px 20px;
+}
+
+/* 3. Seitenbreite zentrieren */
+.container {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* 4. Kopfbereich (Header & Logo) */
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.logo-area {
+  margin-bottom: 12px;
+}
+
+/* MEDPROG-Badge als professioneller Logo-Platzhalter */
+.logo-badge {
+  display: inline-block;
+  background-color: var(--wh-green);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 2px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.header .subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+/* 5. Die Filterleiste (3 Dropdowns) */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  background: var(--bg-card);
+  padding: 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 25px;
+}
+
+.filter-group {
+  flex: 1 1 280px; /* Passt sich automatisch auf Tablets und Handys an */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+/* Moderne Gestaltung der Auswahlfelder */
+.filter-group select {
+  font-size: 15px;
+  color: var(--text-main);
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--wh-green);
+  box-shadow: 0 0 0 3px rgba(109, 165, 21, 0.2);
+}
+
+/* 6. Hauptbereich: Die Karte */
+.map-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.map-container {
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Das Kartenbild selbst */
+#map-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 75vh; /* Verhindert, dass das Bild höher als der Bildschirm wird */
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+/* Hinweiskasten, falls keine Karte vorhanden ist */
+.map-status {
+  text-align: center;
+  padding: 50px 20px;
+  max-width: 500px;
+}
+
+.map-status .status-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.map-status .status-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* 7. Metadaten unter der Karte (Titel, Beschreibung, Quelle) */
+.map-meta {
+  padding: 22px 26px;
+  background-color: #fafbfc;
+}
+
+.map-meta h2 {
+  font-size: 19px;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.map-meta p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.meta-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+/* 8. Projektinformationen / Fußbereich */
+.project-info {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin-bottom: 40px;
+}
+
+.project-info h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: var(--text-main);
+  border-left: 3px solid var(--wh-green);
+  padding-left: 10px;
+}
+
+.project-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding-left: 13px;
+}

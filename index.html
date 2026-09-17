@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDPROG – Versorgungsatlas Gelsenkirchen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Kopfbereich mit Projekttitel -->
+  <header class="header">
+    <div class="logo-area">
+      <span class="logo-badge">MEDPROG</span>
+    </div>
+    <h1>Gesundheitliche Versorgung &amp; soziale Strukturen</h1>
+    <p class="subtitle">Interaktiver Kartenatlas für Gelsenkirchen</p>
+  </header>
+
+  <!-- Filter-Auswahl (3 Dropdowns) -->
+  <main class="container">
+    <section class="filter-bar">
+      
+      <div class="filter-group">
+        <label for="select-service">Versorgungsangebot</label>
+        <select id="select-service">
+          <option value="hausarzt">Hausärztliche Versorgung</option>
+          <option value="kinderarzt">Kinderärztliche Versorgung</option>
+          <option value="psychotherapie">Psychotherapeutische Versorgung</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="select-indicator">Sozialindikator</label>
+        <select id="select-indicator">
+          <option value="arbeitslosigkeit">Arbeitslosenquote</option>
+          <option value="u18">Bevölkerung unter 18 Jahren</option>
+          <option value="u65">Bevölkerung ab 65 Jahren</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="select-level">Räumliche Ebene</label>
+        <select id="select-level">
+          <option value="stadtteile">Stadtteile</option>
+          <option value="stadtbezirke">Stadtbezirke</option>
+        </select>
+      </div>
+
+    </section>
+
+    <!-- Kartenbereich -->
+    <section class="map-section">
+      <div id="map-container" class="map-container">
+        
+        <!-- Bild-Element für vorhandene Karten -->
+        <img id="map-image" src="" alt="Ausgewählte Karte" style="display: none;">
+        
+        <!-- Hinweiskasten, falls keine Karte existiert -->
+        <div id="map-status" class="map-status">
+          <p class="status-title">Kartenansicht wird geladen...</p>
+        </div>
+
+      </div>
+
+      <!-- Metadaten unter der Karte -->
+      <div id="map-meta" class="map-meta" style="display: none;">
+        <h2 id="meta-title"></h2>
+        <p id="meta-description"></p>
+        <div class="meta-footer">
+          <span id="meta-source"></span>
+          <span id="meta-year"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projektinformationen / Methodik -->
+    <footer class="project-info">
+      <h3>Über das Projekt MEDPROG</h3>
+      <p>
+        MEDPROG untersucht kleinräumige Versorgungsstrukturen im Stadtgebiet Gelsenkirchen. 
+        Die räumlichen Auswertungen und Isochronen wurden mit QGIS aufbereitet.
+      </p>
+    </footer>
+  </main>
+
+  <!-- Verknüpfung zu den Skripten -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
