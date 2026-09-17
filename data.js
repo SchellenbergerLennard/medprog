@@ -77,6 +77,6 @@ const MEDPROG_MAPS = [
     description: "Übergeordnete Raumgliederung der Regierungsbezirke in Nordrhein-Westfalen.",
     source: "Land NRW / Geobasis NRW",
     year: "2026"
-  },
+  }
   // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
 ];
