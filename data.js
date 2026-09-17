@@ -81,7 +81,7 @@ const MEDPROG_MAPS = [
   {
   service: "hausarzt",
   indicator: "sgb-ii-quote",
-  level: "regebetirke",
+  level: "regebezirke",
   file: "maps/hausarzt_sgb-ii-quote_regebezirke.png",
   title: "sss",
   description: "sss",
