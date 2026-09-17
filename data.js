@@ -1,19 +1,31 @@
 // ==========================================================================
 // MEDPROG – Karten-Konfiguration
-// Hier werden alle tatsächlich vorhandenen Karten eingetragen.
 // ==========================================================================
 
 const MEDPROG_MAPS = [
+  // Hausarzt
   {
     service: "hausarzt",
-    indicator: "arbeitslosigkeit",
-    level: "stadtteile",
-    file: "maps/hausarzt_arbeitslosigkeit_stadtteile.png",
-    title: "Hausärztliche Versorgung und Arbeitslosigkeit",
-    description: "Räumliche Verteilung der Hausarztsitze im Verhältnis zur SGB-II-Quote in den Stadtteilen von Gelsenkirchen.",
-    source: "MEDPROG / Eigene Darstellung auf Basis von KVWL- und Kommunaldaten",
+    indicator: "none",
+    level: "none",
+    file: "maps/hausarzt_none_none.png",
+    title: "Hausärztliche Versorgung",
+    description: "Fußläufige Erreichbarkeit von Hausärzten in Gelsenkirchen.",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
+  {
+    service: "hausarzt",
+    indicator: "sgb-ii-quote",
+    level: "regebezirke",
+    file: "maps/hausarzt_sgb-ii-quote_regebezirke.png",
+    title: "sss",
+    description: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
+    source: "sss",
+    year: "2026"
+  },
+
+  // Kinderarzt
   {
     service: "kinderarzt",
     indicator: "u18",
@@ -21,23 +33,23 @@ const MEDPROG_MAPS = [
     file: "maps/kinderarzt_u18_stadtteile.png",
     title: "Kinderärztliche Versorgung und Anteil unter 18 Jahren",
     description: "Versorgungsgrad und Erreichbarkeiten von Pädiatern bei kleinräumiger Betrachtung der Minderjährigenquote.",
-    source: "MEDPROG / Eigene Darstellung",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
+
+  // Psychotherapie
   {
     service: "psychotherapie",
     indicator: "none",
-    level: "regebezirke", // oder "stadtbezirke", je nachdem was deine Karte zeigt
+    level: "regebezirke",
     file: "maps/psychotherapie_none_regebezirke.png",
     title: "Psychotherapeutische Versorgung in Gelsenkirchen",
     description: "Räumliche Standorte und Verteilung der niedergelassenen Psychotherapeutinnen und Psychotherapeuten.",
-    source: "MEDPROG / KVWL",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
   
-  // ==========================================
-  // Reine Raum- und Basiskarten (ohne Fachdaten)
-  // ==========================================
+  // Raumdaten
   {
     service: "none",
     indicator: "none",
@@ -45,7 +57,7 @@ const MEDPROG_MAPS = [
     file: "maps/none_none_stadtgebiet.png",
     title: "Stadtgebiet Gelsenkirchen (Gesamtansicht)",
     description: "Kartografische Übersicht des gesamten Stadtgebiets von Gelsenkirchen im regionalen Kontext.",
-    source: "Stadt Gelsenkirchen / MEDPROG",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
   {
@@ -55,7 +67,7 @@ const MEDPROG_MAPS = [
     file: "maps/none_none_stadtbezirke.png",
     title: "Stadtbezirke Gelsenkirchen",
     description: "Räumliche Abgrenzung der fünf Gelsenkirchener Stadtbezirke (Nord, Mitte, West, Ost und Süd).",
-    source: "Stadt Gelsenkirchen / MEDPROG",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
   {
@@ -65,7 +77,7 @@ const MEDPROG_MAPS = [
     file: "maps/none_none_stadtteile.png",
     title: "Stadtteile Gelsenkirchen (Kleinräumige Gliederung)",
     description: "Übersichtskarte der administrativen Grenzen aller Stadtteile im Stadtgebiet.",
-    source: "Stadt Gelsenkirchen / MEDPROG",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
   {
@@ -75,18 +87,8 @@ const MEDPROG_MAPS = [
     file: "maps/none_none_regebezirke.png",
     title: "Regierungsbezirke (Regionale Einordnung)",
     description: "sss",
-    source: "sss",
+    source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
     year: "2026"
   },
-  {
-  service: "hausarzt",
-  indicator: "sgb-ii-quote",
-  level: "regebezirke",
-  file: "maps/hausarzt_sgb-ii-quote_regebezirke.png",
-  title: "sss",
-  description: "sss",
-  source: "sss",
-  year: "2026"
-},
-  // Weitere Karten kannst du später einfach nach diesem Muster hier unten anfügen!
+
 ];
