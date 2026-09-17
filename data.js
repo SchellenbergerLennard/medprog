@@ -42,7 +42,7 @@ const MEDPROG_MAPS = [
     service: "psychotherapie",
     indicator: "none",
     level: "regebezirke",
-    file: "maps/psychotherapie_none_regebezirke.png",
+    file: "maps/psychotherapie_none_none.png",
     title: "Psychotherapeutische Versorgung in Gelsenkirchen",
     description: "Räumliche Standorte und Verteilung der niedergelassenen Psychotherapeutinnen und Psychotherapeuten.",
     source: "MEDPROG | Eigene Darstellung auf Basis von Daten der KVWL und der Stadt Gelsenkrichen",
