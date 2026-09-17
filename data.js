@@ -72,7 +72,7 @@ const MEDPROG_MAPS = [
     service: "none",
     indicator: "none",
     level: "regierungsbezirke",
-    file: "maps/none_none_regierungsbezirke.png",
+    file: "maps/none_none_regebezirke.png",
     title: "Regierungsbezirke (Regionale Einordnung)",
     description: "Übergeordnete Raumgliederung der Regierungsbezirke in Nordrhein-Westfalen.",
     source: "Land NRW / Geobasis NRW",
