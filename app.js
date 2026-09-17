@@ -79,3 +79,39 @@ selectLevel.addEventListener("change", zeigeAusgewaehlteKarte);
 
 // 4. Beim allerersten Laden der Seite einmal ausführen
 zeigeAusgewaehlteKarte();
+
+
+// ==========================================================================
+// Vollbild-Funktion (Lightbox)
+// ==========================================================================
+
+const imageModal = document.getElementById("image-modal");
+const modalImage = document.getElementById("modal-image");
+const modalClose = document.getElementById("modal-close");
+
+// 1. Klick auf die Karte öffnet das Vollbild
+mapImage.addEventListener("click", function() {
+  if (mapImage.src && mapImage.style.display !== "none") {
+    modalImage.src = mapImage.src;
+    imageModal.style.display = "flex";
+  }
+});
+
+// 2. Klick auf das 'X' schließt das Vollbild
+modalClose.addEventListener("click", function() {
+  imageModal.style.display = "none";
+});
+
+// 3. Klick irgendwo auf den dunklen Hintergrund schließt ebenfalls
+imageModal.addEventListener("click", function(event) {
+  if (event.target !== modalImage) {
+    imageModal.style.display = "none";
+  }
+});
+
+// 4. ESC-Taste auf der Tastatur schließt das Bild
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    imageModal.style.display = "none";
+  }
+});
