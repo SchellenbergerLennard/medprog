@@ -25,7 +25,6 @@
         <label for="select-service">Versorgungsangebot</label>
         <select id="select-service">
           <option value="none">--</option>
-          
           <option value="hausarzt">Hausärztliche Versorgung</option>
           <option value="kinderarzt">Kinderärztliche Versorgung</option>
           <option value="psychotherapie">Psychotherapeutische Versorgung</option>
@@ -35,10 +34,11 @@
 
       <div class="filter-group">
         <label for="select-indicator">Sozialindikator</label>
-<select id="select-indicator">
+        <select id="select-indicator">
           <option value="none">--</option>
           
           <optgroup label="Häufig genutzt &amp; Basis">
+            <option value="deprivation">Deprivationsindex</option>
             <option value="arbeitslosigkeit">Arbeitslosenanteil</option>
             <option value="bev-verteilung">Bevölkerungsverteilung</option>
             <option value="bev-dichte-m2">Bevölkerungsdichte pro m²</option>
@@ -90,10 +90,10 @@
         <label for="select-level">Räumliche Ebene</label>
         <select id="select-level">
           <option value="none">--</option>
-
           <option value="stadtgebiet">Stadtgebiet</option>
           <option value="stadtbezirke">Stadtbezirke</option>
           <option value="stadtteile">Stadtteile</option>
+          <option value="wohngebiete">Wohngebiete</option>
           <option value="regebezirke">Regebezirke</option>
         </select>
       </div>
@@ -103,15 +103,10 @@
     <!-- Kartenbereich -->
     <section class="map-section">
       <div id="map-container" class="map-container">
-        
-        <!-- Bild-Element für vorhandene Karten -->
         <img id="map-image" src="" alt="Ausgewählte Karte" style="display: none;">
-        
-        <!-- Hinweiskasten, falls keine Karte existiert -->
         <div id="map-status" class="map-status">
           <p class="status-title">Kartenansicht wird geladen...</p>
         </div>
-
       </div>
 
       <!-- Metadaten unter der Karte -->
@@ -135,7 +130,6 @@
     </footer>
   </main>
 
-  <!-- Verknüpfung zu den Skripten -->
   <script src="data.js"></script>
   <script src="app.js"></script>
 
