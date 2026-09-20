@@ -7,16 +7,16 @@
 :root {
   /* WH-Grüntöne (Frisches Institutsgrün als Akzent) */
   --wh-green: #6da515;          /* Haupt-Akzentgrün */
-  --wh-green-dark: #56840f;     /* Dunkleres Grün für Hover & Klicks */
-  --wh-green-soft: #f2f8ea;     /* Sehr zartes Grün für Hintergründe/Badges */
-  --wh-green-border: #c8e29d;   /* Weiche grüne Umrandung */
+  --wh-green-dark: #56840f;      /* Dunkleres Grün für Hover & Klicks */
+  --wh-green-soft: #f2f8ea;      /* Sehr zartes Grün für Hintergründe/Badges */
+  --wh-green-border: #c8e29d;    /* Weiche grüne Umrandung */
 
   /* Neutrale Töne (Wissenschaftlich, ruhig, hoher Kontrast) */
-  --text-main: #1e293b;         /* Dunkles Schieferblau für besten Lesekomfort */
-  --text-muted: #64748b;        /* Dezentes Grau für Beschreibungen & Metadaten */
-  --bg-page: #f8fafc;           /* Ganz leicht abgetöntes Weiß für den Hintergrund */
-  --bg-card: #ffffff;           /* Reines Weiß für Inhaltskarten */
-  --border-color: #e2e8f0;      /* Subtile graue Linien */
+  --text-main: #1e293b;          /* Dunkles Schieferblau für besten Lesekomfort */
+  --text-muted: #64748b;         /* Dezentes Grau für Beschreibungen & Metadaten */
+  --bg-page: #f8fafc;            /* Ganz leicht abgetöntes Weiß für den Hintergrund */
+  --bg-card: #ffffff;            /* Reines Weiß für Inhaltskarten */
+  --border-color: #e2e8f0;       /* Subtile graue Linien */
 
   /* Abstände und Radien */
   --radius-sm: 6px;
@@ -81,11 +81,12 @@ body {
   color: var(--text-muted);
 }
 
-/* 5. Die Filterleiste (3 Dropdowns) */
+/* 5. Die Filterleiste (Alle 3 Dropdowns sauber untereinander) */
 .filter-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
+  flex-direction: column;        /* Erzwingt dauerhaft die vertikale Stapelung */
+  gap: 16px;                     /* Gleichmäßiger Abstand zwischen den drei Auswahlen */
+  width: 100%;
   background: var(--bg-card);
   padding: 22px;
   border-radius: var(--radius-md);
@@ -95,10 +96,10 @@ body {
 }
 
 .filter-group {
-  flex: 1 1 280px; /* Passt sich automatisch auf Tablets und Handys an */
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 100%;
 }
 
 .filter-group label {
@@ -111,6 +112,7 @@ body {
 
 /* Moderne Gestaltung der Auswahlfelder */
 .filter-group select {
+  width: 100%;                   /* Volle Breite: Lange Indikator-Texte werden nicht mehr gestaucht */
   font-size: 15px;
   color: var(--text-main);
   padding: 10px 14px;
@@ -151,7 +153,7 @@ body {
 #map-image {
   max-width: 100%;
   height: auto;
-  max-height: 75vh; /* Verhindert, dass das Bild höher als der Bildschirm wird */
+  max-height: 75vh;              /* Verhindert, dass das Bild höher als der Bildschirm wird */
   object-fit: contain;
   border-radius: var(--radius-sm);
 }
@@ -243,14 +245,14 @@ body {
 
 /* Der abgedunkelte Hintergrund über der gesamten Seite */
 .image-modal {
-  display: none; /* Standardmäßig unsichtbar */
+  display: none;                 /* Standardmäßig unsichtbar */
   position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(15, 23, 42, 0.9); /* Dunkler, halbtransparenter Hintergrund */
+  background-color: rgba(15, 23, 42, 0.9);
   backdrop-filter: blur(4px);
   justify-content: center;
   align-items: center;
