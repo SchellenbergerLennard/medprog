@@ -296,3 +296,123 @@ body {
   background-color: var(--wh-green-dark);
   transform: translateY(-1px);
 }
+
+/* ==========================================================================
+   Floating Karten-Elemente unten rechts (Legende, Maßstab, Nordpfeil)
+   ========================================================================== */
+.map-container {
+  position: relative; 
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+/* Der Container unten rechts, der alles dynamisch nach oben stapelt */
+.map-overlay-elements {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none; /* Klicks gehen durch den leeren Raum hindurch */
+}
+
+.map-overlay-elements > * {
+  pointer-events: auto; /* Elemente selbst bleiben anklickbar */
+}
+
+/* Legenden-Box im QGIS-Stil */
+.overlay-box {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 240px;
+}
+
+.overlay-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 2px;
+}
+
+.overlay-legend-images {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overlay-legend-images img {
+  max-height: 90px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Untere Zeile für Maßstab und Nordpfeil */
+.overlay-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.overlay-item {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scale-item img {
+  height: 20px;
+  object-fit: contain;
+}
+
+.north-item img {
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Checkbox-Leiste unter der Karte */
+.element-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 22px;
+  background-color: #f1f5f9;
+  border-top: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.controls-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
