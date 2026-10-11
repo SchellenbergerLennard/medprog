@@ -1,5 +1,5 @@
 // ==========================================================================
-// MEDPROG – Dynamische Layer-Steuerung
+// MEDPROG – Dynamische Layer-Steuerung & Export
 // ==========================================================================
 
 const selectService = document.getElementById("select-service");
@@ -17,6 +17,8 @@ const metaTitle = document.getElementById("meta-title");
 const metaDescription = document.getElementById("meta-description");
 const metaSource = document.getElementById("meta-source");
 const metaYear = document.getElementById("meta-year");
+
+const exportBtn = document.getElementById("export-btn");
 
 // Vollbild-Elemente
 const imageModal = document.getElementById("image-modal");
@@ -68,7 +70,7 @@ function updateMap() {
     layerService.src = "";
   }
 
-  // UI umschalten (Status vs. Metadaten)
+  // UI umschalten (Status vs. Metadaten & Export-Button)
   if (activeLayersCount > 0) {
     mapStatus.style.display = "none";
     metaTitle.textContent = titles.join(" + ");
@@ -76,9 +78,23 @@ function updateMap() {
     metaSource.textContent = "Quellen: " + [...new Set(sources)].join(" | ");
     metaYear.textContent = "Stand: 2026";
     mapMeta.style.display = "block";
+
+    // Export-Button aktivieren
+    if (exportBtn) {
+      exportBtn.disabled = false;
+      exportBtn.style.opacity = "1";
+      exportBtn.style.cursor = "pointer";
+    }
   } else {
     mapStatus.style.display = "block";
     mapMeta.style.display = "none";
+
+    // Export-Button deaktivieren
+    if (exportBtn) {
+      exportBtn.disabled = true;
+      exportBtn.style.opacity = "0.5";
+      exportBtn.style.cursor = "not-allowed";
+    }
   }
 }
 
@@ -86,6 +102,55 @@ function updateMap() {
 selectService.addEventListener("change", updateMap);
 selectIndicator.addEventListener("change", updateMap);
 selectLevel.addEventListener("change", updateMap);
+
+// ==========================================================================
+// Export-Funktion (Zusammenführen der aktiven Layer auf ein Canvas)
+// ==========================================================================
+if (exportBtn) {
+  exportBtn.addEventListener("click", function() {
+    const activeLayers = [];
+    if (layerLevel.style.display !== "none" && layerLevel.src) activeLayers.push(layerLevel);
+    if (layerIndicator.style.display !== "none" && layerIndicator.src) activeLayers.push(layerIndicator);
+    if (layerService.style.display !== "none" && layerService.src) activeLayers.push(layerService);
+
+    if (activeLayers.length === 0) return;
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const width = activeLayers[0].naturalWidth || 1200;
+    const height = activeLayers[0].naturalHeight || 800;
+    canvas.width = width;
+    canvas.height = height;
+
+    let loadedCount = 0;
+    const imageObjects = [];
+
+    activeLayers.forEach((layer, index) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      imageObjects[index] = img;
+
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === activeLayers.length) {
+          imageObjects.forEach(imgObj => {
+            ctx.drawImage(imgObj, 0, 0, width, height);
+          });
+
+          const dataURL = canvas.toDataURL("image/png");
+          const link = document.createElement("a");
+          link.download = "medprog-kombikarte.png";
+          link.href = dataURL;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      };
+      img.src = layer.src;
+    });
+  });
+}
 
 // Klick auf aktive Layer öffnet die Vollbild-Ansicht (Lightbox)
 [layerLevel, layerIndicator, layerService].forEach(layer => {
@@ -112,62 +177,3 @@ document.addEventListener("keydown", (e) => {
 
 // Initialer Aufruf beim Laden
 updateMap();
-
-// ==========================================================================
-// NEU: Export-Funktion (Zusammenführen der aktiven Layer auf ein Canvas)
-// ==========================================================================
-
-const exportBtn = document.getElementById("export-btn");
-
-if (exportBtn) {
-  exportBtn.addEventListener("click", function() {
-    // 1. Prüfen, welche Layer gerade aktiv/sichtbar sind
-    const activeLayers = [];
-    if (layerLevel.style.display !== "none" && layerLevel.src) activeLayers.push(layerLevel);
-    if (layerIndicator.style.display !== "none" && layerIndicator.src) activeLayers.push(layerIndicator);
-    if (layerService.style.display !== "none" && layerService.src) activeLayers.push(layerService);
-
-    if (activeLayers.length === 0) return;
-
-    // 2. Ein unsichtbares Canvas in Originalgröße erstellen
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    // Maße vom ersten geladenen Bild übernehmen (Standard-Fallbacks falls nötig)
-    const width = activeLayers[0].naturalWidth || 1200;
-    const height = activeLayers[0].naturalHeight || 800;
-    canvas.width = width;
-    canvas.height = height;
-
-    let loadedCount = 0;
-    const imageObjects = [];
-
-    // 3. Alle aktiven Bilder asynchron laden und nacheinander zeichnen
-    activeLayers.forEach((layer, index) => {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      imageObjects[index] = img;
-
-      img.onload = () => {
-        loadedCount++;
-        // Wenn alle Bilder im Speicher geladen sind...
-        if (loadedCount === activeLayers.length) {
-          // ...reihenfolgegetreu (Unten nach Oben) aufs Canvas zeichnen
-          imageObjects.forEach(imgObj => {
-            ctx.drawImage(imgObj, 0, 0, width, height);
-          });
-
-          // 4. Download-Link erzeugen und auslösen
-          const dataURL = canvas.toDataURL("image/png");
-          const link = document.createElement("a");
-          link.download = "medprog-export-karte.png";
-          link.href = dataURL;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }
-      };
-      img.src = layer.src;
-    });
-  });
-}
