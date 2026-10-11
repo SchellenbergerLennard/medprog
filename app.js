@@ -112,3 +112,62 @@ document.addEventListener("keydown", (e) => {
 
 // Initialer Aufruf beim Laden
 updateMap();
+
+// ==========================================================================
+// NEU: Export-Funktion (Zusammenführen der aktiven Layer auf ein Canvas)
+// ==========================================================================
+
+const exportBtn = document.getElementById("export-btn");
+
+if (exportBtn) {
+  exportBtn.addEventListener("click", function() {
+    // 1. Prüfen, welche Layer gerade aktiv/sichtbar sind
+    const activeLayers = [];
+    if (layerLevel.style.display !== "none" && layerLevel.src) activeLayers.push(layerLevel);
+    if (layerIndicator.style.display !== "none" && layerIndicator.src) activeLayers.push(layerIndicator);
+    if (layerService.style.display !== "none" && layerService.src) activeLayers.push(layerService);
+
+    if (activeLayers.length === 0) return;
+
+    // 2. Ein unsichtbares Canvas in Originalgröße erstellen
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Maße vom ersten geladenen Bild übernehmen (Standard-Fallbacks falls nötig)
+    const width = activeLayers[0].naturalWidth || 1200;
+    const height = activeLayers[0].naturalHeight || 800;
+    canvas.width = width;
+    canvas.height = height;
+
+    let loadedCount = 0;
+    const imageObjects = [];
+
+    // 3. Alle aktiven Bilder asynchron laden und nacheinander zeichnen
+    activeLayers.forEach((layer, index) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      imageObjects[index] = img;
+
+      img.onload = () => {
+        loadedCount++;
+        // Wenn alle Bilder im Speicher geladen sind...
+        if (loadedCount === activeLayers.length) {
+          // ...reihenfolgegetreu (Unten nach Oben) aufs Canvas zeichnen
+          imageObjects.forEach(imgObj => {
+            ctx.drawImage(imgObj, 0, 0, width, height);
+          });
+
+          // 4. Download-Link erzeugen und auslösen
+          const dataURL = canvas.toDataURL("image/png");
+          const link = document.createElement("a");
+          link.download = "medprog-export-karte.png";
+          link.href = dataURL;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      };
+      img.src = layer.src;
+    });
+  });
+}
