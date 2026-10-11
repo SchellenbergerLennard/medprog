@@ -265,3 +265,34 @@ body {
 .modal-close:hover {
   color: var(--wh-green);
 }
+
+/* ==========================================================================
+   Export-Button Styling
+   ========================================================================== */
+.export-container {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+  text-align: right;
+}
+
+.export-btn {
+  background-color: var(--wh-green);
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(109, 165, 21, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.export-btn:hover {
+  background-color: var(--wh-green-dark);
+  transform: translateY(-1px);
+}
