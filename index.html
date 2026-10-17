@@ -1,190 +1,80 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MEDPROG – Versorgungsatlas Gelsenkirchen</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoJSON im Browser anzeigen</title>
+    
+    <!-- Leaflet CSS (Design für die Karte) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Kopfbereich mit Projekttitel -->
-  <header class="header">
-    <div class="logo-area">
-      <span class="logo-badge">MEDPROG</span>
-    </div>
-    <h1>Gesundheitliche Versorgung &amp; soziale Strukturen</h1>
-    <p class="subtitle">Interaktiver Kartenatlas für Gelsenkirchen</p>
-  </header>
+    <!-- Hier wird die Karte platziert -->
+    <div id="map"></div>
 
-  <!-- Filter-Auswahl (3 Dropdowns) -->
-  <main class="container">
-    <section class="filter-bar">
-      
-      <div class="filter-group">
-        <label for="select-service">Versorgungsangebot</label>
-        <select id="select-service">
-          <option value="none">-- Keine Auswahl --</option>
-          <option value="hausarzt">Hausärztliche Versorgung</option>
-          <option value="kinderarzt">Kinderärztliche Versorgung</option>
-          <option value="psychotherapie">Psychotherapeutische Versorgung</option>
-          <option value="rettungsdienst">Rettungsdienstliche Versorgung</option>
-        </select>
-      </div>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-      <div class="filter-group">
-        <label for="select-indicator">Sozialindikator</label>
-        <select id="select-indicator">
-          <option value="none">-- Keine Auswahl --</option>
-          
-          <optgroup label="Häufig genutzt &amp; Basis">
-            <option value="deprivation">Deprivationsindex</option>
-            <option value="arbeitslosigkeit">Arbeitslosenanteil</option>
-            <option value="bev-verteilung">Bevölkerungsverteilung</option>
-            <option value="bev-dichte-m2">Bevölkerungsdichte pro m²</option>
-            <option value="siedlungsdichte">Siedlungsdichte</option>
-          </optgroup>
+    <script>
+        // 1. Karte initialisieren und auf Mitte von Deutschland zentrieren
+        const map = L.map('map').setView([51.1657, 10.4515], 6);
 
-          <optgroup label="Migration &amp; Herkunft">
-            <option value="bev-mig">Bevölkerungsverteilung mit Migrationshintergrund</option>
-            <option value="anteil-mig">Anteil BEV mit Migrationshintergrund</option>
-            <option value="anteil-u18-mig">Anteil BEV unter 18 Jahre mit Migrationshintergrund</option>
-            <option value="anteil-geborene-mig">Anteil Lebendgeborene mit Migrationshintergrund</option>
-            <option value="zuwanderung-ausland">Zuwanderung aus dem Ausland</option>
-          </optgroup>
+        // 2. OpenStreetMap-Hintergrundkarte laden
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-          <optgroup label="Kinder &amp; Jugend (unter 18 Jahre)">
-            <option value="anteil-u6">Bevölkerungsanteil unter 6 Jahre</option>
-            <option value="u18">Bevölkerungsanteil unter 18 Jahre</option>
-            <option value="jugendquotient">Jugendquotient</option>         
-          </optgroup>
+        // 3. Deine GeoJSON-Datei laden 
+        // (Ersetze 'daten.geojson' durch den exakten Dateinamen deiner Datei)
+        fetch('daten.geojson')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Datei konnte nicht geladen werden');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 4. GeoJSON zur Karte hinzufügen und stylen
+                const geojsonLayer = L.geoJson(data, {
+                    style: {
+                        color: "#ff7800",     // Rahmenfarbe
+                        weight: 2,            // Linienstärke
+                        fillColor: "#0078ff", // Füllfarbe
+                        fillOpacity: 0.5      // Transparenz (0 = unsichtbar, 1 = voll)
+                    },
+                    onEachFeature: function(feature, layer) {
+                        // Wenn die Daten Attribute (z.B. Namen) haben, öffnet sich beim Klick ein Popup
+                        if (feature.properties) {
+                            let popupContent = "<b>Eigenschaften:</b><br>";
+                            for (let key in feature.properties) {
+                                popupContent += `<b>${key}:</b> ${feature.properties[key]}<br>`;
+                            }
+                            layer.bindPopup(popupContent);
+                        }
+                    }
+                }).addTo(map);
 
-          <optgroup label="Ältere Bevölkerung &amp; Hochaltrige">
-            <option value="u65">Bevölkerungsanteil 65 Jahre und älter</option>
-            <option value="altenquotient">Altenquotient</option>
-            <option value="anteil-hochaltrige">Bevölkerungsanteil Hochaltrige</option>         
-          </optgroup>
-
-          <optgroup label="Haushalte, Familien &amp; Alleinerziehende">
-            <option value="familienanteil-hh">Familienanteil an allen Haushalten</option>
-            <option value="anteil-kinderreiche-fam">Anteil kinderreicher Familien an allen Haushalten</option>
-            <option value="anteil-single-hh">Anteil Singlehaushalte</option>
-            <option value="anteil-hochaltrige-single-80plus">Anteil hochaltrige Singlehaushalte an allen Haushalten mit Bezugsperson über 80 Jahre</option>
-            <option value="anteil-hochaltrige-single">Anteil hochaltrige Singlehaushalte an allen Singlehaushalten</option>
-            <option value="anteil-ae-hh">Anteil Alleinerziehender an allen Familien-Haushalten</option>
-          </optgroup>
-
-          <optgroup label="Bevölkerungsentwicklung &amp; Dynamik">
-            <option value="bev-entw-3j">Bevölkerungsentwicklung in den vergangenen 3 Jahren</option>
-            <option value="bev-entw-10j">Bevölkerungsentwicklung in den vergangenen 10 Jahren</option>
-          </optgroup>
-
-          <optgroup label="Erwerbstätigkeit &amp; Beschäftigung">
-            <option value="anteil-svb">Anteil sozialversicherungspflichtig Beschäftigte</option>
-            <option value="sgb-ii-quote">SGB-II-Quote</option>
-          </optgroup>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="select-level">Räumliche Ebene</label>
-        <select id="select-level">
-          <option value="none">-- Keine Auswahl --</option>
-          <option value="stadtgebiet">Stadtgebiet</option>
-          <option value="stadtbezirke">Stadtbezirke</option>
-          <option value="stadtteile">Stadtteile</option>
-          <option value="wohngebiete">Wohngebiete</option>
-          <option value="regebezirke">Regierungsbezirke</option>
-        </select>
-      </div>
-
-    </section>
-
-    <!-- Kartenbereich mit integrierten Overlay-Elementen unten rechts -->
-    <section class="map-section">
-      <div id="map-container" class="map-container">
-        <!-- 1. Unterste Schicht: Räumliche Grenzen -->
-        <img id="layer-level" class="map-layer" src="" alt="Räumliche Ebene" style="display: none;">
-        
-        <!-- 2. Mittlere Schicht: Sozialindikator -->
-        <img id="layer-indicator" class="map-layer" src="" alt="Sozialindikator" style="display: none;">
-        
-        <!-- 3. Oberste Schicht: Versorgungsstandorte -->
-        <img id="layer-service" class="map-layer" src="" alt="Versorgungsangebot" style="display: none;">
-
-        <!-- Statusmeldung, falls nichts ausgewählt ist -->
-        <div id="map-status" class="map-status">
-          <p class="status-title">Bitte wählen Sie oben Ihre gewünschten Ebenen aus.</p>
-          <p class="status-desc">Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.</p>
-        </div>
-
-        <!-- RECHTE UNTERE ECKE: Floating Elemente (Legende, Maßstab, Nordpfeil) -->
-        <div id="map-overlay-elements" class="map-overlay-elements">
-          <!-- Legenden-Box (sitzt ganz oben von den dreien) -->
-          <div id="overlay-legend" class="overlay-box" style="display: none;">
-            <div class="overlay-title">Legende</div>
-            <div class="overlay-legend-images">
-              <img id="legend-indicator-img" src="" alt="Legende Indikator" style="display: none;">
-              <img id="legend-service-img" src="" alt="Legende Service" style="display: none;">
-            </div>
-          </div>
-
-          <!-- Untere Zeile: Maßstab (links) und Nordpfeil (ganz rechts unten) -->
-          <div id="overlay-bottom-row" class="overlay-bottom-row">
-            <div id="overlay-scale-wrapper" class="overlay-item scale-item" style="display: none;">
-              <img id="scale-img" src="legends/scale.png" alt="Maßstab">
-            </div>
-            <div id="overlay-north-wrapper" class="overlay-item north-item" style="display: none;">
-              <img id="north-img" src="legends/north_arrow.png" alt="Nordpfeil">
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Steuerungselemente: Checkboxes für Ein/Aus der Kartelemente -->
-      <div class="element-controls-bar">
-        <span class="controls-label">Karten-Elemente einblenden:</span>
-        <label class="checkbox-label"><input type="checkbox" id="toggle-legend" checked> Legende</label>
-        <label class="checkbox-label"><input type="checkbox" id="toggle-scale" checked> Maßstab</label>
-        <label class="checkbox-label"><input type="checkbox" id="toggle-north" checked> Nordpfeil</label>
-      </div>
-
-      <!-- Export-Leiste -->
-      <div class="export-bar">
-        <button id="export-btn" class="export-btn">
-          📷 Kombinierte Karte als Bild herunterladen
-        </button>
-      </div>
-
-      <!-- Metadaten unter der Karte -->
-      <div id="map-meta" class="map-meta" style="display: none;">
-        <h2 id="meta-title"></h2>
-        <p id="meta-description"></p>
-        <div class="meta-footer">
-          <span id="meta-source"></span>
-          <span id="meta-year"></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projektinformationen / Methodik -->
-    <footer class="project-info">
-      <h3>Über das Projekt MEDPROG</h3>
-      <p>
-        MEDPROG untersucht kleinräumige Versorgungsstrukturen im Stadtgebiet Gelsenkirchen. 
-        Die transparenten Kartenebenen und Auswertungen wurden mit QGIS aufbereitet.
-      </p>
-    </footer>
-  </main>
-
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-
-  <!-- Vollbild-Ansicht (Lightbox) -->
-  <div id="image-modal" class="image-modal">
-    <span id="modal-close" class="modal-close">&times;</span>
-    <img id="modal-image" class="modal-image" src="" alt="Vergrößerte Kartenansicht">
-  </div>
+                // 5. Die Ansicht automatisch auf die geladenen Daten zoomen
+                map.fitBounds(geojsonLayer.getBounds());
+            })
+            .catch(error => {
+                console.error('Fehler:', error);
+                alert('Fehler beim Laden der GeoJSON-Datei. Schaue in die Browser-Konsole (F12) für Details.');
+            });
+    </script>
 </body>
 </html>
