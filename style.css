@@ -416,3 +416,118 @@ body {
   cursor: pointer;
   user-select: none;
 }
+
+
+/* Hauptnavigation */
+.main-nav {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e5e8;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 16px 20px;
+    color: #444;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: #8e2639;
+    background: #faf5f6;
+}
+
+.nav-link.active {
+    color: #8e2639;
+    border-bottom-color: #8e2639;
+}
+
+/* Downloadseite */
+.download-intro {
+    margin: 35px 0;
+}
+
+.download-intro h2,
+.download-section h2 {
+    color: #8e2639;
+}
+
+.download-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.download-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e5e8;
+    border-radius: 8px;
+}
+
+.file-icon {
+    background: #e8f2eb;
+    color: #267447;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-info h3 {
+    margin: 0 0 6px;
+}
+
+.file-info p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.download-button {
+    background: #8e2639;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.download-button:hover {
+    background: #701c2c;
+}
+
+@media (max-width: 600px) {
+    .download-card {
+        flex-wrap: wrap;
+    }
+
+    .file-info {
+        min-width: 180px;
+    }
+
+    .download-button {
+        width: 100%;
+        text-align: center;
+    }
+}
