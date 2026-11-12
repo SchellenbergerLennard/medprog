@@ -6,7 +6,7 @@
   <title>MEDPROG – Versorgungsatlas Gelsenkirchen</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body>a
 
   <!-- Kopfbereich mit Projekttitel -->
   <header class="header">
@@ -20,7 +20,7 @@
   <!-- Filter-Auswahl (3 Dropdowns) -->
   <main class="container">
     <section class="filter-bar">
-
+      
       <div class="filter-group">
         <label for="select-service">Versorgungsangebot</label>
         <select id="select-service">
@@ -36,7 +36,7 @@
         <label for="select-indicator">Sozialindikator</label>
         <select id="select-indicator">
           <option value="none">-- Keine Auswahl --</option>
-
+          
           <optgroup label="Häufig genutzt &amp; Basis">
             <option value="deprivation">Deprivationsindex</option>
             <option value="arbeitslosigkeit">Arbeitslosenanteil</option>
@@ -100,15 +100,15 @@
 
     </section>
 
-    <!-- Kartenbereich (Layer-Stacking) -->
+    <!-- Kartenbereich mit integrierten Overlay-Elementen unten rechts -->
     <section class="map-section">
       <div id="map-container" class="map-container">
         <!-- 1. Unterste Schicht: Räumliche Grenzen -->
         <img id="layer-level" class="map-layer" src="" alt="Räumliche Ebene" style="display: none;">
-
+        
         <!-- 2. Mittlere Schicht: Sozialindikator -->
         <img id="layer-indicator" class="map-layer" src="" alt="Sozialindikator" style="display: none;">
-
+        
         <!-- 3. Oberste Schicht: Versorgungsstandorte -->
         <img id="layer-service" class="map-layer" src="" alt="Versorgungsangebot" style="display: none;">
 
@@ -117,13 +117,43 @@
           <p class="status-title">Bitte wählen Sie oben Ihre gewünschten Ebenen aus.</p>
           <p class="status-desc">Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.</p>
         </div>
+
+        <!-- RECHTE UNTERE ECKE: Floating Elemente (Legende, Maßstab, Nordpfeil) -->
+        <div id="map-overlay-elements" class="map-overlay-elements">
+          <!-- Legenden-Box (sitzt ganz oben von den dreien) -->
+          <div id="overlay-legend" class="overlay-box" style="display: none;">
+            <div class="overlay-title">Legende</div>
+            <div class="overlay-legend-images">
+              <img id="legend-indicator-img" src="" alt="Legende Indikator" style="display: none;">
+              <img id="legend-service-img" src="" alt="Legende Service" style="display: none;">
+            </div>
+          </div>
+
+          <!-- Untere Zeile: Maßstab (links) und Nordpfeil (ganz rechts unten) -->
+          <div id="overlay-bottom-row" class="overlay-bottom-row">
+            <div id="overlay-scale-wrapper" class="overlay-item scale-item" style="display: none;">
+              <img id="scale-img" src="legends/scale.png" alt="Maßstab">
+            </div>
+            <div id="overlay-north-wrapper" class="overlay-item north-item" style="display: none;">
+              <img id="north-img" src="legends/north_arrow.png" alt="Nordpfeil">
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Export-Leiste direkt unter der Karte -->
-<div class="export-bar">
+      <!-- Steuerungselemente: Checkboxes für Ein/Aus der Kartelemente -->
+      <div class="element-controls-bar">
+        <span class="controls-label">Karten-Elemente einblenden:</span>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-legend" checked> Legende</label>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-scale" checked> Maßstab</label>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-north" checked> Nordpfeil</label>
+      </div>
+
+      <!-- Export-Leiste -->
+      <div class="export-bar">
         <button id="export-btn" class="export-btn">
           📷 Kombinierte Karte als Bild herunterladen
-          Karte als Bild herunterladen
         </button>
       </div>
 
