@@ -6,7 +6,7 @@
   <title>MEDPROG – Versorgungsatlas Gelsenkirchen</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body>a
 
   <!-- Kopfbereich mit Projekttitel -->
   <header class="header">
@@ -16,17 +16,6 @@
     <h1>Gesundheitliche Versorgung &amp; soziale Strukturen</h1>
     <p class="subtitle">Interaktiver Kartenatlas für Gelsenkirchen</p>
   </header>
-
-  <nav class="main-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-link active">
-        Kartenatlas
-      </a>
-      <a href="downloads.html" class="nav-link">
-        Daten &amp; Downloads
-      </a>
-    </div>
-  </nav>
 
   <!-- Filter-Auswahl (3 Dropdowns) -->
   <main class="container">
@@ -67,13 +56,13 @@
           <optgroup label="Kinder &amp; Jugend (unter 18 Jahre)">
             <option value="anteil-u6">Bevölkerungsanteil unter 6 Jahre</option>
             <option value="u18">Bevölkerungsanteil unter 18 Jahre</option>
-            <option value="jugendquotient">Jugendquotient</option>          
+            <option value="jugendquotient">Jugendquotient</option>         
           </optgroup>
 
           <optgroup label="Ältere Bevölkerung &amp; Hochaltrige">
             <option value="u65">Bevölkerungsanteil 65 Jahre und älter</option>
             <option value="altenquotient">Altenquotient</option>
-            <option value="anteil-hochaltrige">Bevölkerungsanteil Hochaltrige</option>          
+            <option value="anteil-hochaltrige">Bevölkerungsanteil Hochaltrige</option>         
           </optgroup>
 
           <optgroup label="Haushalte, Familien &amp; Alleinerziehende">
@@ -111,39 +100,91 @@
 
     </section>
 
-    <!-- Kartenbereich für statische PNG-Karten -->
+    <!-- Kartenbereich mit integrierten Overlay-Elementen unten rechts -->
     <section class="map-section">
-      <div class="map-container">
-        <img id="map-image" src="" alt="Kartenansicht Gelsenkirchen" style="display: none; max-width: 100%; height: auto;">
+      <div id="map-container" class="map-container">
+        <!-- 1. Unterste Schicht: Räumliche Grenzen -->
+        <img id="layer-level" class="map-layer" src="" alt="Räumliche Ebene" style="display: none;">
+        
+        <!-- 2. Mittlere Schicht: Sozialindikator -->
+        <img id="layer-indicator" class="map-layer" src="" alt="Sozialindikator" style="display: none;">
+        
+        <!-- 3. Oberste Schicht: Versorgungsstandorte -->
+        <img id="layer-service" class="map-layer" src="" alt="Versorgungsangebot" style="display: none;">
+
+        <!-- Statusmeldung, falls nichts ausgewählt ist -->
+        <div id="map-status" class="map-status">
+          <p class="status-title">Bitte wählen Sie oben Ihre gewünschten Ebenen aus.</p>
+          <p class="status-desc">Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.</p>
+        </div>
+
+        <!-- RECHTE UNTERE ECKE: Floating Elemente (Legende, Maßstab, Nordpfeil) -->
+        <div id="map-overlay-elements" class="map-overlay-elements">
+          <!-- Legenden-Box (sitzt ganz oben von den dreien) -->
+          <div id="overlay-legend" class="overlay-box" style="display: none;">
+            <div class="overlay-title">Legende</div>
+            <div class="overlay-legend-images">
+              <img id="legend-indicator-img" src="" alt="Legende Indikator" style="display: none;">
+              <img id="legend-service-img" src="" alt="Legende Service" style="display: none;">
+            </div>
+          </div>
+
+          <!-- Untere Zeile: Maßstab (links) und Nordpfeil (ganz rechts unten) -->
+          <div id="overlay-bottom-row" class="overlay-bottom-row">
+            <div id="overlay-scale-wrapper" class="overlay-item scale-item" style="display: none;">
+              <img id="scale-img" src="legends/scale.png" alt="Maßstab">
+            </div>
+            <div id="overlay-north-wrapper" class="overlay-item north-item" style="display: none;">
+              <img id="north-img" src="legends/north_arrow.png" alt="Nordpfeil">
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Statusmeldung, falls nichts ausgewählt ist -->
-      <div id="map-status" class="map-status">
-        <p class="status-title">Bitte wählen Sie oben Ihre gewünschten Ebenen aus.</p>
-        <p class="status-desc">Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.</p>
+      <!-- Steuerungselemente: Checkboxes für Ein/Aus der Kartelemente -->
+      <div class="element-controls-bar">
+        <span class="controls-label">Karten-Elemente einblenden:</span>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-legend" checked> Legende</label>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-scale" checked> Maßstab</label>
+        <label class="checkbox-label"><input type="checkbox" id="toggle-north" checked> Nordpfeil</label>
+      </div>
+
+      <!-- Export-Leiste -->
+      <div class="export-bar">
+        <button id="export-btn" class="export-btn">
+          📷 Kombinierte Karte als Bild herunterladen
+        </button>
+      </div>
+
+      <!-- Metadaten unter der Karte -->
+      <div id="map-meta" class="map-meta" style="display: none;">
+        <h2 id="meta-title"></h2>
+        <p id="meta-description"></p>
+        <div class="meta-footer">
+          <span id="meta-source"></span>
+          <span id="meta-year"></span>
+        </div>
       </div>
     </section>
-
-    <!-- Metadaten unter der Karte -->
-    <div id="map-meta" class="map-meta" style="display: none;">
-      <h2 id="meta-title"></h2>
-      <p id="meta-description"></p>
-      <div class="meta-footer">
-        <span id="meta-source"></span>
-        <span id="meta-year"></span>
-      </div>
-    </div>
 
     <!-- Projektinformationen / Methodik -->
     <footer class="project-info">
       <h3>Über das Projekt MEDPROG</h3>
       <p>
-        MEDPROG untersucht kleinräumige Versorgungsstrukturen im Stadtgebiet Gelsenkirchen.
+        MEDPROG untersucht kleinräumige Versorgungsstrukturen im Stadtgebiet Gelsenkirchen. 
+        Die transparenten Kartenebenen und Auswertungen wurden mit QGIS aufbereitet.
       </p>
     </footer>
   </main>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
+
+  <!-- Vollbild-Ansicht (Lightbox) -->
+  <div id="image-modal" class="image-modal">
+    <span id="modal-close" class="modal-close">&times;</span>
+    <img id="modal-image" class="modal-image" src="" alt="Vergrößerte Kartenansicht">
+  </div>
 </body>
 </html>
