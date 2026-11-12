@@ -116,10 +116,11 @@
       <div class="map-container">
         <img id="map-image" src="" alt="Kartenansicht Gelsenkirchen" style="display: none; max-width: 100%; height: auto; margin: 0 auto;">
 
-        <!-- Statusmeldung, falls nichts ausgewählt ist -->
+        <!-- Statusmeldung + Übersicht bereits erstellter Karten -->
         <div id="map-status" class="map-status">
           <p class="status-title">Bitte wählen Sie oben Ihre gewünschten Ebenen aus.</p>
-          <p class="status-desc">Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.</p>
+          <p class="status-desc">Bereits erstellte Indikatoren sind im Auswahlmenü mit <strong>✓</strong> gekennzeichnet.</p>
+          <div id="available-overview" style="margin-top: 1rem; text-align: left; display: inline-block; max-width: 100%;"></div>
         </div>
       </div>
     </section>
@@ -135,6 +136,29 @@
   </main>
 
   <script>
+    // =========================================================================
+    // 1. HIER ALLE VORHANDENEN DATEINAMEN AUS DEM ORDNER "maps/" EINTRAGEN
+    //    (Schema: service_indicator_level.png)
+    // =========================================================================
+    const availableMaps = [
+      "none_none_stadtgebiet.png",
+      "none_none_stadtbezirke.png",
+      "none_none_stadtteile.png",
+      "none_none_wohngebiete.png",
+      "none_none_regebezirke.png",
+      "hausarzt_none_none.png",
+      "hausarzt_deprivation_stadtteile.png",
+      "hausarzt_anteil-hochaltrige_regebezirke.png",
+      "hausarzt_sgb-ii-quote_regebezirke.png",
+      "kinderarzt_u18_stadtteile.png",
+      "none_deprivation_wohngebiete.png",
+      "none_anteil-hochaltrige_regebezirke.png",
+      "none_arbeitslosigkeit_regebezirke.png"
+    ];
+
+    // =========================================================================
+    // 2. LOGIK FÜR DROPDOWN-MARKIERUNGEN & KARTENANZEIGE
+    // =========================================================================
     const selectService = document.getElementById("select-service");
     const selectIndicator = document.getElementById("select-indicator");
     const selectLevel = document.getElementById("select-level");
@@ -142,23 +166,172 @@
     const mapStatus = document.getElementById("map-status");
     const statusTitle = mapStatus.querySelector(".status-title");
     const statusDesc = mapStatus.querySelector(".status-desc");
+    const availableOverview = document.getElementById("available-overview");
+
+    // Lesbare Namen aus den Dropdown-Optionen auslesen
+    const serviceLabels = {};
+    const indicatorLabels = {};
+    const levelLabels = {};
+
+    Array.from(selectService.options).forEach(opt => {
+      if (opt.value !== "none") serviceLabels[opt.value] = opt.textContent.trim();
+    });
+    Array.from(selectIndicator.options).forEach(opt => {
+      if (opt.value !== "none") indicatorLabels[opt.value] = opt.textContent.trim();
+    });
+    Array.from(selectLevel.options).forEach(opt => {
+      if (opt.value !== "none") levelLabels[opt.value] = opt.textContent.trim();
+    });
+
+    // Dateinamen in Objekte zerlegen
+    const parsedMaps = availableMaps.map(file => {
+      const parts = file.replace(/\.png$/i, "").split("_");
+      return {
+        file,
+        service: parts[0] || "none",
+        indicator: parts[1] || "none",
+        level: parts[2] || "none"
+      };
+    });
+
+    // Kennzeichnet direkt in den Dropdowns, welche Karten bereits existieren
+    function updateDropdownHints() {
+      const currentService = selectService.value;
+      const currentIndicator = selectIndicator.value;
+      const currentLevel = selectLevel.value;
+
+      // 1. Sozialindikator-Dropdown aktualisieren
+      Array.from(selectIndicator.options).forEach(opt => {
+        if (opt.value === "none") return;
+        const baseLabel = indicatorLabels[opt.value];
+
+        // Passende Karten für diesen Indikator suchen (gefiltert nach gewähltem Service/Level)
+        const matches = parsedMaps.filter(m =>
+          m.indicator === opt.value &&
+          (currentService === "none" || m.service === currentService) &&
+          (currentLevel === "none" || m.level === currentLevel)
+        );
+
+        if (matches.length > 0) {
+          const details = matches.map(m => {
+            const parts = [];
+            if (currentService === "none" && m.service !== "none") {
+              parts.push(serviceLabels[m.service] || m.service);
+            }
+            if (currentLevel === "none" && m.level !== "none") {
+              parts.push(levelLabels[m.level] || m.level);
+            }
+            return parts.join(", ");
+          }).filter(Boolean);
+
+          const suffix = details.length > 0 ? ` (${[...new Set(details)].join(" | ")})` : "";
+          opt.textContent = `✓ ${baseLabel}${suffix}`;
+          opt.style.color = "";
+          opt.style.fontWeight = "600";
+        } else {
+          opt.textContent = baseLabel;
+          opt.style.color = "#999";
+          opt.style.fontWeight = "normal";
+        }
+      });
+
+      // 2. Räumliche-Ebene-Dropdown aktualisieren
+      Array.from(selectLevel.options).forEach(opt => {
+        if (opt.value === "none") return;
+        const baseLabel = levelLabels[opt.value];
+
+        const hasMatch = parsedMaps.some(m =>
+          m.level === opt.value &&
+          (currentService === "none" || m.service === currentService) &&
+          (currentIndicator === "none" || m.indicator === currentIndicator)
+        );
+
+        if (hasMatch) {
+          opt.textContent = `✓ ${baseLabel}`;
+          opt.style.color = "";
+        } else {
+          opt.textContent = baseLabel;
+          opt.style.color = "#999";
+        }
+      });
+    }
+
+    // Klickbare Schnellauswahl für bereits erstellte Indikatorkarten rendern
+    function renderAvailableOverview() {
+      const indicatorMaps = parsedMaps.filter(m => m.indicator !== "none");
+      if (indicatorMaps.length === 0) return;
+
+      const listHtml = indicatorMaps.map(m => {
+        const sText = m.service !== "none" ? serviceLabels[m.service] : "Ohne Versorgungsangebot";
+        const iText = indicatorLabels[m.indicator] || m.indicator;
+        const lText = m.level !== "none" ? levelLabels[m.level] : "Ohne Raumebene";
+
+        return `<li style="margin-bottom: 0.4rem;">
+          <button type="button"
+            data-service="${m.service}"
+            data-indicator="${m.indicator}"
+            data-level="${m.level}"
+            style="background: #f0f4f8; border: 1px solid #cbd5e1; border-radius: 4px; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 0.9rem; text-align: left;">
+            <strong>${iText}</strong> – ${sText} (${lText})
+          </button>
+        </li>`;
+      }).join("");
+
+      availableOverview.innerHTML = `
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #475569;"><strong>Bereits erstellte Indikatorkarten (Direktauswahl):</strong></p>
+        <ul style="list-style: none; padding: 0; margin: 0;">${listHtml}</ul>
+      `;
+
+      availableOverview.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectService.value = btn.dataset.service;
+          selectIndicator.value = btn.dataset.indicator;
+          selectLevel.value = btn.dataset.level;
+          updateMap();
+        });
+      });
+    }
 
     function updateMap() {
+      updateDropdownHints();
+
       const service = selectService.value;
       const indicator = selectIndicator.value;
       const level = selectLevel.value;
 
+      // Startzustand
       if (service === "none" && indicator === "none" && level === "none") {
         mapImage.style.display = "none";
         mapImage.removeAttribute("src");
         statusTitle.textContent = "Bitte wählen Sie oben Ihre gewünschten Ebenen aus.";
-        statusDesc.textContent = "Sie können Raumebenen, Indikatoren und Standorte frei miteinander kombinieren.";
+        statusDesc.innerHTML = "Bereits erstellte Indikatoren sind im Auswahlmenü mit <strong>✓</strong> gekennzeichnet.";
+        availableOverview.style.display = "inline-block";
         mapStatus.style.display = "block";
         return;
       }
 
-      const filePath = `maps/${service}_${indicator}_${level}.png`;
-      mapImage.src = filePath;
+      const fileName = `${service}_${indicator}_${level}.png`;
+      const exactExists = availableMaps.includes(fileName);
+
+      // Falls ein Indikator gewählt wurde, aber die räumliche Ebene noch auf "none" steht:
+      if (!exactExists && level === "none" && indicator !== "none") {
+        const availableLevels = parsedMaps
+          .filter(m => m.service === service && m.indicator === indicator && m.level !== "none")
+          .map(m => levelLabels[m.level] || m.level);
+
+        if (availableLevels.length > 0) {
+          mapImage.style.display = "none";
+          mapImage.removeAttribute("src");
+          statusTitle.textContent = "Bitte wählen Sie noch die räumliche Ebene aus.";
+          statusDesc.textContent = `Für diese Auswahl bereits erstellt: ${[...new Set(availableLevels)].join(", ")}`;
+          availableOverview.style.display = "none";
+          mapStatus.style.display = "block";
+          return;
+        }
+      }
+
+      // Bild laden (funktioniert auch für neu hinzugefügte Dateien, die noch nicht in availableMaps stehen)
+      mapImage.src = `maps/${fileName}`;
       mapImage.style.display = "block";
       mapStatus.style.display = "none";
     }
@@ -168,12 +341,17 @@
       mapImage.style.display = "none";
       statusTitle.textContent = "Für diese Kombination liegt noch keine Karte vor.";
       statusDesc.textContent = `Gesuchte Datei: ${mapImage.getAttribute("src")}`;
+      availableOverview.style.display = "none";
       mapStatus.style.display = "block";
     });
 
     selectService.addEventListener("change", updateMap);
     selectIndicator.addEventListener("change", updateMap);
     selectLevel.addEventListener("change", updateMap);
+
+    // Beim Laden der Seite initial ausführen
+    renderAvailableOverview();
+    updateDropdownHints();
   </script>
 </body>
 </html>
